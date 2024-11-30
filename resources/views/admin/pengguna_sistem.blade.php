@@ -7,6 +7,98 @@
         <div class="title">
             Data Pengguna Sistem
         </div>
+        <div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="modal_tambah_penggunaLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_tambah_penggunaLabel">Tambah Pengguna</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('tambah_pengguna') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-id-card"></i> Nama
+                                </label>
+                                <input type="text" placeholder="Masukkan nama"
+                                    class="form-control @error('name') is-invalid @enderror" name="name" id="name"
+                                    value="{{ old('name') }}" autofocus required>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    <i class="fas fa-circle"></i> Username
+                                </label>
+                                <input type="text" placeholder="Masukkan Username"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    id="username" value="{{ old('username') }}" autofocus required>
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope"></i> Email
+                                </label>
+                                <input type="email" placeholder="Masukkan email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email" id="email"
+                                    value="{{ old('email') }}" required>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock"></i> Password
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        name="password" id="password" placeholder="Masukkan password" required>
+                                    <button class="input-group-text bg-light" id="showHidePw" type="button">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <div id="password_error" class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="keterangan" class="form-label">
+                                    <i class="fas fa-user-tag"></i> Keterangan
+                                </label>
+                                <select class="form-select @error('keterangan') is-invalid @enderror" name="keterangan"
+                                    id="keterangan" required>
+                                    <option value="" disabled selected>Pilih Keterangan</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Guru">Guru</option>
+                                    <option value="Murid">Murid</option>
+                                </select>
+                                @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="content-wrapper">
             <div class="row same-height">
                 <div class="col-md-12">
@@ -76,8 +168,8 @@
                                                                 Pengguna
                                                                 {{ $item->name }}
                                                             </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form action="{{ route('update_pengguna', $item->username) }}"
                                                             method="POST">
@@ -268,7 +360,6 @@
             </div>
         </div>
     </div>
-
     <div class="settings">
         <div class="settings-icon-wrapper">
             <div class="settings-icon">
@@ -326,95 +417,6 @@
             </ul>
         </div>
     </div>
-    <div class="modal fade" id="modal_tambah_pengguna" tabindex="-1" aria-labelledby="modal_tambah_penggunaLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal_tambah_penggunaLabel">Tambah Pengguna</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('tambah_pengguna') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">
-                                <i class="fas fa-id-card"></i> Nama
-                            </label>
-                            <input type="text" placeholder="Masukkan nama"
-                                class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-                                value="{{ old('name') }}" autofocus required>
-                            @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">
-                                <i class="fas fa-circle"></i> Username
-                            </label>
-                            <input type="text" placeholder="Masukkan Username"
-                                class="form-control @error('username') is-invalid @enderror" name="username"
-                                id="username" value="{{ old('username') }}" autofocus required>
-                            @error('username')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">
-                                <i class="fas fa-envelope"></i> Email
-                            </label>
-                            <input type="email" placeholder="Masukkan email"
-                                class="form-control @error('email') is-invalid @enderror" name="email" id="email"
-                                value="{{ old('email') }}" required>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">
-                                <i class="fas fa-lock"></i> Password
-                            </label>
-                            <input type="password" placeholder="Masukkan password"
-                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                id="password" required>
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="keterangan" class="form-label">
-                                <i class="fas fa-user-tag"></i> Keterangan
-                            </label>
-                            <select class="form-select @error('keterangan') is-invalid @enderror" name="keterangan"
-                                id="keterangan" required>
-                                <option value="" disabled selected>Pilih Keterangan</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Guru">Guru</option>
-                                <option value="Murid">Murid</option>
-                            </select>
-                            @error('keterangan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
@@ -422,7 +424,6 @@
     <script src="../vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
     <script src="../assets/js/pages/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         Main.init()
     </script>
@@ -453,6 +454,53 @@
 @section('scripts')
     @parent
     <script>
+        document.getElementById('showHidePw').addEventListener('click', function() {
+            var passwordField = document.getElementById('password');
+            var icon = this.querySelector('i');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('bi-eye-fill');
+                icon.classList.add('bi-eye-slash-fill');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('bi-eye-slash-fill');
+                icon.classList.add('bi-eye-fill');
+            }
+        });
+
+        function cekPassword() {
+            var password = document.getElementById("password").value;
+            var errorContainer = document.getElementById("password_error");
+            errorContainer.innerHTML = '';
+
+            var temp = '';
+            if (password.length < 8) {
+                temp += '<p class="mb-0"><strong>- Minimal 8 karakter</strong></p>';
+                console.log("kurang");
+
+            }
+            if (password.length > 100) {
+                temp += '<p class="mb-0"><strong>- Maximal 100 karakter</strong></p>';
+            }
+            if (!/\d/.test(password)) {
+                temp += '<p class="mb-0"><strong>- Harus memiliki angka</strong></p>';
+            }
+            if (!/[A-Z]/.test(password)) {
+                temp += '<p class="mb-0"><strong>- Harus memiliki huruf kapital</strong></p>';
+            }
+            if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password)) {
+                temp += '<p class="mb-0"><strong>- Harus terdapat karakter khusus</strong></p>';
+            }
+
+            if (temp !== '') {
+                errorContainer.innerHTML = temp;
+                errorContainer.style.display = 'block';
+            } else {
+                errorContainer.style.display = 'none';
+            }
+        }
+        document.getElementById('password').addEventListener('keyup', cekPassword);
+
         @if (session('success'))
             Swal.fire({
                 icon: 'success',

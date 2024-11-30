@@ -42,7 +42,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->kelas->kelas }}</td>
                                                 <td>{{ $item->judul_tugas }}</td>
-                                                <td>{{ $item->descripsi }}</td>
+                                                <td>{!! $item->descripsi !!}</td>
                                                 <td>
                                                     @php
                                                         $filePath = asset(
@@ -95,8 +95,8 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <div class="modal fade" id="modal_view_tugas_{{ $item->id }}"
-                                                tabindex="-1" aria-labelledby="modal_view_tugasLabel_{{ $item->id }}"
+                                            <div class="modal fade" id="modal_view_tugas_{{ $item->id }}" tabindex="-1"
+                                                aria-labelledby="modal_view_tugasLabel_{{ $item->id }}"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -334,8 +334,8 @@
                             <label for="descripsi" class="form-label">
                                 <i class="fas fa-info-circle"></i> Descripsi
                             </label>
-                            <textarea class="form-control @error('descripsi') is-invalid @enderror" placeholder="Masukkan descripsi"
-                                name="descripsi" id="descripsi" rows="3">{{ old('descripsi') }}</textarea>
+                            <textarea class="form-control @error('descripsi') is-invalid @enderror" name="descripsi" id="descripsi"
+                                placeholder="Masukkan descripsi" rows="3" required>{{ old('descripsi') }}</textarea>
                             @error('descripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -371,6 +371,7 @@
     <script src="../vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
     <script src="../assets/js/pages/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../vendor/ckeditor/ckeditor.js"></script>
     <script>
         Main.init()
     </script>
@@ -390,6 +391,9 @@
 @endsection
 @section('scripts')
     @parent
+    <script>
+        CKEDITOR.replace('descripsi');
+    </script>
     <script>
         @if (session('success'))
             Swal.fire({

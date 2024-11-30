@@ -48,6 +48,7 @@ Route::middleware(['auth', 'guru'])->group(function () {
     Route::post('/tambah_materi', [GuruController::class, 'tambah_materi'])->name('tambah_materi');
     Route::post('/tambah_tugas', [GuruController::class, 'tambah_tugas'])->name('tambah_tugas');
     Route::get('/hapus_materi/{judul_materi}', [GuruController::class, 'hapus_materi'])->name('hapus_materi');
+    Route::put('/update_akunn/{id}', [GuruController::class, 'update_akunn'])->name('update_akunn');
     Route::get('/akun_saya', [GuruController::class, 'akun_saya'])->name('akun_saya');
     Route::get('/tugas', [GuruController::class, 'tugas'])->name('tugas');
     Route::get('/logoutGuru', [AuthController::class, 'logoutGuru']);

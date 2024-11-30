@@ -7,6 +7,7 @@ use App\Models\Tugas;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Materi;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -81,6 +82,26 @@ class GuruController extends Controller
         return view('guru.akun_saya');
     }
 
+    public function update_akunn(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'old_password' => 'required|string|min:8',
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::findOrFail($id);
+        if (!Hash::check($validated['old_password'], $user->password)) {
+            return redirect()->route('akun_saya')->with('old_password', 'Password lama yang Anda masukkan salah!');
+        }
+
+        $user->update([
+            'name' => $validated['name'],
+            'password' => bcrypt($validated['password']),
+        ]);
+
+        return redirect()->route('akun_saya')->with('success', 'Akun berhasil diperbarui!');
+    }
     public function tugas()
     {
         $kelas = Kelas::all();

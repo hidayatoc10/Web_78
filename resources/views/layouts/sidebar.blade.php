@@ -141,6 +141,7 @@
         <div class="overlay action-toggle">
         </div>
     </div>
+    <script src="../vendor/ckeditor/ckeditor.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>

@@ -146,7 +146,15 @@ class AdminController extends Controller
             'name' => 'required|string|max:100|min:3',
             'username' => 'required|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/[A-Z]/',
+                'regex:/[a-z]/',
+                'regex:/[0-9]/',
+            ],
             'keterangan' => 'required|in:Admin,Guru,Murid',
         ]);
         User::create([
@@ -215,7 +223,7 @@ class AdminController extends Controller
 
         $user = User::findOrFail($id);
         if (!Hash::check($validated['old_password'], $user->password)) {
-            return back()->withErrors(['old_password' => 'Password lama yang Anda masukkan salah.']);
+            return redirect()->route('akun_saya')->with('old_password', 'Password lama yang Anda masukkan salah!');
         }
 
         $user->update([
